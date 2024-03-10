@@ -59,7 +59,7 @@ export const Login = ({ setResponse }) => {
         console.log("dasboard page", user);
         setResponse(user);
         Toast("Login Successful", "success");
-        // navigate("/Dashboard");
+        navigate("/Dashboard");
         // ...
       })
       .catch((error) => {
@@ -79,7 +79,7 @@ export const Login = ({ setResponse }) => {
           </p>
         </div>
         <div className="page2">
-          <form className="form">
+          <form className="form" onSubmit={handleSubmit}>
             <p id="heading">Login</p>
             <div className="field">
               <svg
@@ -121,7 +121,7 @@ export const Login = ({ setResponse }) => {
               />
             </div>
             <div className="btn">
-              <button className="button1" onClick={handleSubmit}>
+              <button className="button1">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               </button>
               <button className="button2"><RouterLink to="/signup">Sign Up</RouterLink></button>

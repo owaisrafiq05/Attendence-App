@@ -30,7 +30,7 @@ export const SignUp = ({ setResponse }) => {
         // ...
         setResponse(user);
         Toast("Login Successful", "success");
-        // navigate("/Dashboard");
+        navigate("/Dashboard");
       })
       .catch((error) => {
         // Handle Errors here.
@@ -48,24 +48,20 @@ export const SignUp = ({ setResponse }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you can perform any form submission logic, such as sending data to a server
-    console.log("Form submitted with data:", { email, password });
-    setEmail("");
-    setPassword("");
-    signInWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
+        // Signed up
         const user = userCredential.user;
-        console.log("dasboard page", user);
-        setResponse(user);
-        Toast("Login Successful", "success");
-        // navigate("/Dashboard");
-        // ...
+        console.log(user, "user");
+        Toast("Signup Successful", "success");
+        navigate("/");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        // Handle error here or provide user feedback
         Toast(errorMessage, "error");
+        console.error(error);
       });
   };
   return (
@@ -79,7 +75,7 @@ export const SignUp = ({ setResponse }) => {
           </p>
         </div>
         <div className="page2">
-          <form className="form">
+          <form className="form" onSubmit={handleSubmit}>
             <p id="heading">Sign Up</p>
             <div className="field">
               <svg
@@ -94,9 +90,11 @@ export const SignUp = ({ setResponse }) => {
               </svg>
               <input
                 autocomplete="off"
-                placeholder="Username"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="input-field"
-                type="text"
+                type="email"
               />
             </div>
             <div className="field">
@@ -114,6 +112,8 @@ export const SignUp = ({ setResponse }) => {
                 placeholder="Password"
                 className="input-field"
                 type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div className="btn">
